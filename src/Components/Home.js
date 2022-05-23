@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Movie({url, id, title}){
     return(
-        <Link to={`/assentos/${id}`}>
+        <Link to={`/sessoes/${id}`}>
             <Poster>
                 <img src={url} alt={`poster do filme: ${title}`} ></img>
             </Poster>
@@ -16,14 +16,15 @@ function Movie({url, id, title}){
 export default function Home(){
     //Logic
     const [movieList, setMovieList]=useState([]);
+    
     useEffect(()=> {
         const promise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies")
-        promise.then((res)=>setMovieList(res.data))     
+        promise.then((res)=>setMovieList(res.data)) 
         },[])
-
+    
     //UI
     return(
-    <Conteiner_Selection>
+    <Conteiner_Body>
         <h3>Selecione o Filme</h3>
         <Movies>
             {movieList.map((item,index)=><Movie 
@@ -33,16 +34,15 @@ export default function Home(){
             title={item.title}
             />)}
         </Movies>
-    </Conteiner_Selection>
+    </Conteiner_Body>
     )
 }
 
-const Conteiner_Selection = styled.section`
+const Conteiner_Body = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     box-sizing: border-box;
     h3{
         font-size: 24px;
