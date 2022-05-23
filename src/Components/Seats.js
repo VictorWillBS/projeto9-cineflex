@@ -70,18 +70,20 @@ export default function Seats({dataMovie,setDataMovie,dataSeat,setDataSeat,dataU
         const [cpf,setCpf]=useState("")
         
         function reservar(e){
-            e.preventDefault()
-            const body={
-                ids:arrIds,
-                name,
-                cpf,
-            }
-            setDataUser(body)
-            setDataSeat(seatNumber)
-            const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",body)
-            promise.then(()=>
-            navigate("../sucesso"))
-            promise.catch(()=>alert("não foi possível reservar esse assento"))
+            if(arrIds.length){  e.preventDefault()
+                const body={
+                    ids:arrIds,
+                    name,
+                    cpf,
+                }
+                setDataUser(body)
+                setDataSeat(seatNumber)
+                const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",body)
+                promise.then(()=>
+                navigate("../sucesso"))
+                promise.catch(()=>alert("não foi possível reservar esse assento"))}
+                else{alert("escolha um assento")}
+          
         }
 
         return(
